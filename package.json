@@ -2,6 +2,10 @@
   "name": "OpenAuth",
   "main": "server.js",
   "dependencies": {
-    "express": "~4.1.1"
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.1.2",
+    "mongoose": "^4.10.4",
+    "nodemon": "^1.11.0"
   }
 }
