@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var body-parser = require('body-parser');
+var bodyParser = require('body-parser');
 var userController = require('./controllers/user');
 var passport = require('passport');
 var authController = require('./controllers/auth');
@@ -10,7 +10,7 @@ var app = express();
 
 // Use the body-parser package in our application
 app.use(bodyParser.urlencoded({
-  extended: true;
+  extended: true
 }));
 
 // Use the passport module in our application
