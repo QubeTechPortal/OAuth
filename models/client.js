@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+// Add code for encryption, before storing it in the DB
+
 var ClientSchema = new mongoose.Schema({
   name: {type: String, unique: true, required: true},
   id: {type: String, required: true},

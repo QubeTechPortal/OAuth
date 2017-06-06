@@ -6,7 +6,7 @@ var passport = require('passport');
 var authController = require('./controllers/auth');
 var clientController = require('./controllers/client');
 
-mongoose.connect('mongodb://localhost:271017/OAuth');
+mongoose.connect('mongodb://localhost:27017/OAuth');
 var app = express();
 
 // Use the body-parser package in our application
@@ -28,10 +28,10 @@ router.route('users')
   .post(userController.postUsers)
   .get(userController.getUsers);
 
-routers.route('/clients')
+router.route('/clients')
   .post(authController.isAuthenticated, clientController.postClients)
   .get(authController.isAuthenticated, clientController.getClients);
-  
+
 app.use('/api', router);
 
 app.listen(port);

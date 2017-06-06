@@ -30,7 +30,7 @@ passport.use(new BasicStrategy(
   }
 ));
 
-passport.use('client-basic', new BasicStrategy{
+passport.use('client-basic', new BasicStrategy(
   function(username, password, callback){
     Client.findOne({id: username}, function(err, client){
       if (err)
@@ -43,7 +43,7 @@ passport.use('client-basic', new BasicStrategy{
       return callback(null, client);
     });
   }
-});
+));
 
 passport.use(new BearerStrategy(
   function(accessToken, callback){
