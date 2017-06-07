@@ -75,3 +75,46 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectUri, ca
     });
   });
 }));
+
+
+// endpoint initializes a new authorization transaction
+exports.authorization = [
+  server.authorization(function(clientId, redirectUri, callback){
+    Client.findOne({ id: clientId}, function(err, client){
+      if(err)
+        return callback(err);
+      return callback(null, client, redirectUri);
+    });
+  });
+
+  // renders dialog.ejs view
+  function(req, res){
+    res.render('dialog', {transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client});
+  }
+]
+
+exports.decision = [
+  server.decision()
+]
+
+exports.token = [
+  server.token(),
+  server.errorHandler()
+]
+
+// Function to generate unique identifier for access token
+function uid(len){
+  var buf = [],
+  chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+  charlen = chars.length;
+
+  for (var i = 0; i < len; ++i){
+    buf.push(chars[getRandomInt(0, charlen - 1)]);
+  }
+
+  return buf.join('');
+}
+
+function getRandomInt(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
