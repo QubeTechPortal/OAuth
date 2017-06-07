@@ -7,6 +7,7 @@ var authController = require('./controllers/auth');
 var clientController = require('./controllers/client');
 var ejs = require('ejs');
 var session = require('express-session');
+var oath2Controller = require('./controllers/oauth2');
 
 mongoose.connect('mongodb://localhost:27017/OAuth');
 var app = express();
@@ -36,6 +37,15 @@ var router = express.Router();
 router.get('/', function(req,res){
   res.json({ message: 'Qube Technologies'});
 });
+
+//endpoint handlers for oauth2 authorize
+router.route('/oauth2/authorize')
+  .get(authController.isAuthenticated, oauth2Controller.authorization)
+  .post(authController.isAuthenticated, oauth2Controller.decision);
+
+// endpoint handlers for oauth2 token
+router.route('/oauth2/token')
+  .post(authController.isAuthenticated, oauth2Controller.token);
 
 router.route('/users')
   .post(userController.postUsers)
